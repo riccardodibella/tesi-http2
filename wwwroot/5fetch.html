@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>HTTP/2</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <link rel="stylesheet" href="css/card-pages.css">
+        
+        <!-- icons8.com -->
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+        <!-- https://getbootstrap.com/docs/4.0/getting-started/contents/#css-files -->
+        <link rel="stylesheet" href="bootstrap-4.0.0-dist/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row pt-2" id="card-list-wrapper"></div>
+        </div>
+    </body>
+</html>
+<script>
+    async function makeList(){
+        let list = await (await fetch("api/food/5")).json();
+        let wrapper = document.getElementById("card-list-wrapper");
+        for(let elem of list){
+            let s_c_o = document.createElement("div");
+            s_c_o.classList.add("col-12","col-md-6", "col-lg-3", "col-xl-2", "single-card-outer");
+            let s_c_i = document.createElement("div");
+            s_c_i.classList.add("single-card-inner");
+            let img = document.createElement("img");
+            img.src=elem.path;
+            s_c_i.appendChild(img);
+            let span = document.createElement("span");
+            span.classList.add("card-text");
+            span.innerText = elem.text;
+            s_c_i.appendChild(span);
+            s_c_o.appendChild(s_c_i);
+            wrapper.appendChild(s_c_o);
+        }
+    }
+    makeList();
+    
+
+</script>
